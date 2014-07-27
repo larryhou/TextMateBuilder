@@ -23,4 +23,4 @@ ninja -t clean
 rsync -cvazh --delete /Users/doudou/build/TextMate/Applications/TextMate/TextMate.app/ /Applications/TextMate.app/
 
 # delete building temp files
-echo rm -fr /Users/doudou/build
+rm -fr /Users/doudou/build
