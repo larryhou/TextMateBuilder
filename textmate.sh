@@ -1,5 +1,13 @@
 #!/bin/bash
+
 cd $(dirname $0)
+folder=$(pwd)
+
+retryCount=$1
+if [ "${retryCount}" = "" ]
+then
+	retryCount=0
+fi
 
 if [ -d textmate ]
 then
@@ -18,8 +26,9 @@ git submodule update --init
 if [ ! $? -eq 0 ]
 then
 	clear
-	echo =================[RESTART]=================
-	sh $0
+	let retryCount=retryCount+1
+	echo =================[RESTART:${retryCount}]=================
+	sh ${folder}/textmate.sh ${retryCount}
 	exit
 fi
 
@@ -31,6 +40,7 @@ rsync -cvazh --delete ${HOME}/build/TextMate/Applications/TextMate/TextMate.app/
 
 # quit TextMate.app if running
 osascript -e 'tell application "TextMate" to quit'
+
 # restart TextMate.app
 open -a TextMate
 
