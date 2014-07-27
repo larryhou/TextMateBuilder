@@ -22,14 +22,14 @@ fi
 git submodule update --init
 
 # build app
-./configure && ninja TextMate && ninja mate
+./configure && ninja TextMate
 if [ ! $? -eq 0 ]
 then
+	ninja -t clean
 	clear
+	
 	let retryCount=retryCount+1
 	echo =================[RESTART:${retryCount}]=================
-	
-	ninja -t clean
 	sh ${folder}/textmate.sh ${retryCount}
 	exit
 fi
