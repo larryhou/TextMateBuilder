@@ -22,12 +22,14 @@ fi
 git submodule update --init
 
 # build app
-./configure && ninja
+./configure && ninja TextMate
 if [ ! $? -eq 0 ]
 then
 	clear
 	let retryCount=retryCount+1
 	echo =================[RESTART:${retryCount}]=================
+	
+	ninja -t clean
 	sh ${folder}/textmate.sh ${retryCount}
 	exit
 fi
@@ -38,12 +40,11 @@ osascript -e 'tell application "TextMate" to quit'
 # replace TextMate.app in /Applications/
 rsync -cvazh --delete ${HOME}/build/TextMate/Applications/TextMate/TextMate.app/ /Applications/TextMate.app/
 
-# quit TextMate.app if running
-osascript -e 'tell application "TextMate" to quit'
-
 # restart TextMate.app
 open -a TextMate
 
 # delete temp building files
 ninja -t clean
 rm -fr ${HOME}/build
+
+
