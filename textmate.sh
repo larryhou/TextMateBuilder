@@ -22,7 +22,7 @@ fi
 git submodule update --init
 
 # build app
-./configure && ninja TextMate
+./configure && ninja TextMate && ninja mate
 if [ ! $? -eq 0 ]
 then
 	clear
