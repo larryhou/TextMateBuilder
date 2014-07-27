@@ -20,7 +20,7 @@ ninja -t clean
 ./configure && ninja
 
 # replace TextMate.app in /Applications/
-rsync -cvazh --delete /Users/doudou/build/TextMate/Applications/TextMate/TextMate.app/ /Applications/TextMate.app/
+rsync -cvazh --delete /Users/$(logname)/build/TextMate/Applications/TextMate/TextMate.app/ /Applications/TextMate.app/
 
 # delete building temp files
-rm -fr /Users/doudou/build
+rm -fr /Users/$(logname)/build
